@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "QFChatModel.h"
 
 @interface QFXMPPManager : NSObject
 
@@ -27,19 +26,6 @@
                result:( void(^)(BOOL success, NSError *error) )resultBlock;
 
 
-#pragma  mark - 获取好友
-- (void)getAllFriends:( void(^)(NSArray *friends) )resultBlock;
-
-
-#pragma  mark - 添加好友
-- (void)addFriend:(NSString *)name;
-
-
-#pragma  mark - 发送信息
-- (void)sendMessage:(NSString *)content to:(NSString *)name result:( void(^)(BOOL success) )resultBlock;
-
-#pragma  mark - 接收信息
-- (void)getMessage:( void(^)(QFChatModel *model) )resultBlock;
 
 
 

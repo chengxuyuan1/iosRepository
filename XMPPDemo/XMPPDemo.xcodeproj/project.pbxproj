@@ -164,11 +164,6 @@
 		BC0E115E1AC4E5330092D4E9 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0E115D1AC4E5330092D4E9 /* libxml2.dylib */; };
 		BC0E11631AC4E6980092D4E9 /* QFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0E11611AC4E6980092D4E9 /* QFLoginViewController.m */; };
 		BC0E11641AC4E6980092D4E9 /* QFLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC0E11621AC4E6980092D4E9 /* QFLoginViewController.xib */; };
-		BC140BD21AC54C1500E2C6B0 /* QFChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC140BD01AC54C1500E2C6B0 /* QFChatViewController.m */; };
-		BC140BD31AC54C1500E2C6B0 /* QFChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC140BD11AC54C1500E2C6B0 /* QFChatViewController.xib */; };
-		BC140BD61AC54D3600E2C6B0 /* QFChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC140BD51AC54D3600E2C6B0 /* QFChatModel.m */; };
-		BC2341ED1AC52B38007BF6DF /* QFFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2341EB1AC52B38007BF6DF /* QFFriendListViewController.m */; };
-		BC2341EE1AC52B38007BF6DF /* QFFriendListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC2341EC1AC52B38007BF6DF /* QFFriendListViewController.xib */; };
 		BCE2CEE51AC4E90A00D25B57 /* QFXMPPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE2CEE41AC4E90A00D25B57 /* QFXMPPManager.m */; };
 		BCE2CEE91AC4F4FE00D25B57 /* QFUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE2CEE81AC4F4FE00D25B57 /* QFUserModel.m */; };
 /* End PBXBuildFile section */
@@ -498,14 +493,6 @@
 		BC0E11601AC4E6980092D4E9 /* QFLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFLoginViewController.h; sourceTree = "<group>"; };
 		BC0E11611AC4E6980092D4E9 /* QFLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFLoginViewController.m; sourceTree = "<group>"; };
 		BC0E11621AC4E6980092D4E9 /* QFLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QFLoginViewController.xib; sourceTree = "<group>"; };
-		BC140BCF1AC54C1500E2C6B0 /* QFChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFChatViewController.h; sourceTree = "<group>"; };
-		BC140BD01AC54C1500E2C6B0 /* QFChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFChatViewController.m; sourceTree = "<group>"; };
-		BC140BD11AC54C1500E2C6B0 /* QFChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QFChatViewController.xib; sourceTree = "<group>"; };
-		BC140BD41AC54D3600E2C6B0 /* QFChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFChatModel.h; sourceTree = "<group>"; };
-		BC140BD51AC54D3600E2C6B0 /* QFChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFChatModel.m; sourceTree = "<group>"; };
-		BC2341EA1AC52B38007BF6DF /* QFFriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFFriendListViewController.h; sourceTree = "<group>"; };
-		BC2341EB1AC52B38007BF6DF /* QFFriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFFriendListViewController.m; sourceTree = "<group>"; };
-		BC2341EC1AC52B38007BF6DF /* QFFriendListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QFFriendListViewController.xib; sourceTree = "<group>"; };
 		BCE2CEE31AC4E90A00D25B57 /* QFXMPPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFXMPPManager.h; sourceTree = "<group>"; };
 		BCE2CEE41AC4E90A00D25B57 /* QFXMPPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFXMPPManager.m; sourceTree = "<group>"; };
 		BCE2CEE71AC4F4FE00D25B57 /* QFUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFUserModel.h; sourceTree = "<group>"; };
@@ -580,8 +567,6 @@
 				BCE2CEE61AC4F4D400D25B57 /* Models */,
 				BCE2CEE21AC4E8CD00D25B57 /* XMPPManager */,
 				BC0E115F1AC4E6510092D4E9 /* 用户登陆 */,
-				BC2341E91AC52AF2007BF6DF /* 我的好友 */,
-				BC140BCE1AC54BEC00E2C6B0 /* 聊天室 */,
 				BC0E0F3F1AC4E4800092D4E9 /* Images.xcassets */,
 				BC0E0F341AC4E4800092D4E9 /* Supporting Files */,
 			);
@@ -1503,26 +1488,6 @@
 			name = "用户登陆";
 			sourceTree = "<group>";
 		};
-		BC140BCE1AC54BEC00E2C6B0 /* 聊天室 */ = {
-			isa = PBXGroup;
-			children = (
-				BC140BCF1AC54C1500E2C6B0 /* QFChatViewController.h */,
-				BC140BD01AC54C1500E2C6B0 /* QFChatViewController.m */,
-				BC140BD11AC54C1500E2C6B0 /* QFChatViewController.xib */,
-			);
-			name = "聊天室";
-			sourceTree = "<group>";
-		};
-		BC2341E91AC52AF2007BF6DF /* 我的好友 */ = {
-			isa = PBXGroup;
-			children = (
-				BC2341EA1AC52B38007BF6DF /* QFFriendListViewController.h */,
-				BC2341EB1AC52B38007BF6DF /* QFFriendListViewController.m */,
-				BC2341EC1AC52B38007BF6DF /* QFFriendListViewController.xib */,
-			);
-			name = "我的好友";
-			sourceTree = "<group>";
-		};
 		BCE2CEE21AC4E8CD00D25B57 /* XMPPManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1537,8 +1502,6 @@
 			children = (
 				BCE2CEE71AC4F4FE00D25B57 /* QFUserModel.h */,
 				BCE2CEE81AC4F4FE00D25B57 /* QFUserModel.m */,
-				BC140BD41AC54D3600E2C6B0 /* QFChatModel.h */,
-				BC140BD51AC54D3600E2C6B0 /* QFChatModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1619,13 +1582,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC140BD31AC54C1500E2C6B0 /* QFChatViewController.xib in Resources */,
 				BC0E11641AC4E6980092D4E9 /* QFLoginViewController.xib in Resources */,
 				BC0E0F381AC4E4800092D4E9 /* InfoPlist.strings in Resources */,
 				BC0E11541AC4E4EB0092D4E9 /* README.txt in Resources */,
 				BC0E0F401AC4E4800092D4E9 /* Images.xcassets in Resources */,
 				BC0E11591AC4E4EB0092D4E9 /* build-libidn.sh in Resources */,
-				BC2341EE1AC52B38007BF6DF /* QFFriendListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1688,7 +1649,6 @@
 				BC0E10EB1AC4E4EB0092D4E9 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				BC0E10D11AC4E4EB0092D4E9 /* XMPPDigestMD5Authentication.m in Sources */,
 				BC0E11451AC4E4EB0092D4E9 /* GCDMulticastDelegate.m in Sources */,
-				BC140BD61AC54D3600E2C6B0 /* QFChatModel.m in Sources */,
 				BC0E10D41AC4E4EB0092D4E9 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				BC0E112F1AC4E4EB0092D4E9 /* XMPPPresence+XEP_0172.m in Sources */,
 				BC0E11161AC4E4EB0092D4E9 /* XMPPResultSet.m in Sources */,
@@ -1702,7 +1662,6 @@
 				BC0E10F71AC4E4EB0092D4E9 /* XMPPIQ+LastActivity.m in Sources */,
 				BC0E11081AC4E4EB0092D4E9 /* XMPPvCard.xcdatamodeld in Sources */,
 				BC0E11631AC4E6980092D4E9 /* QFLoginViewController.m in Sources */,
-				BC140BD21AC54C1500E2C6B0 /* QFChatViewController.m in Sources */,
 				BC0E11021AC4E4EB0092D4E9 /* XMPPRoomMemoryStorage.m in Sources */,
 				BC0E10D01AC4E4EB0092D4E9 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				BC0E113A1AC4E4EB0092D4E9 /* NSXMLElement+XEP_0203.m in Sources */,
@@ -1743,7 +1702,6 @@
 				BC0E113C1AC4E4EB0092D4E9 /* XMPPAttentionModule.m in Sources */,
 				BC0E11411AC4E4EB0092D4E9 /* XMPPMessage+XEP_0308.m in Sources */,
 				BC0E11261AC4E4EB0092D4E9 /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
-				BC2341ED1AC52B38007BF6DF /* QFFriendListViewController.m in Sources */,
 				BC0E10F31AC4E4EB0092D4E9 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				BC0E11211AC4E4EB0092D4E9 /* XMPPTransports.m in Sources */,
 				BC0E10DC1AC4E4EB0092D4E9 /* XMPPJID.m in Sources */,

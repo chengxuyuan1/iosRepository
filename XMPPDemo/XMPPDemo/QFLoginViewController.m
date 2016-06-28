@@ -11,9 +11,6 @@
 //导入xmpp管理器
 #import "QFXMPPManager.h"
 
-//导入好友列表VC的头文件
-#import "QFFriendListViewController.h"
-
 @interface QFLoginViewController ()
 
 //用户名输入框
@@ -61,13 +58,6 @@
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@" 恭喜你！登录成功了！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
-            
-            
-            //登录成功后，进入好友列表
-            QFFriendListViewController *friendListVC = [[QFFriendListViewController alloc] init];
-            [self.navigationController pushViewController:friendListVC animated:YES];
-            
-            
         }
         
         //登录失败

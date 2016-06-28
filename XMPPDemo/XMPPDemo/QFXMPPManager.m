@@ -28,9 +28,6 @@
     //保存用户数据
     QFUserModel *userModel;
     
-    //保存所有好友
-    NSMutableArray *allFriends;
-    
     //判断是否在注册（注册/登录）
     BOOL isRegister;
     
@@ -39,15 +36,6 @@
     
     //登陆结果的block
     void (^loginResultBlock)(BOOL success, NSError *error);
-    
-    //获取好友结果的block
-    void (^getFriendsResultBlock)(NSArray *friends);
-    
-    //发送信息结果的block
-    void (^sendMessageResultBlock)(BOOL success);
-    
-    //接收信息结果的block
-    void (^getMessageResultBlock)(QFChatModel *model);
     
 }
 
@@ -103,9 +91,6 @@
         
         //初始化用户model
         userModel = [[QFUserModel alloc] init];
-        
-        //初始化allFriends
-        allFriends = [[NSMutableArray alloc] init];
         
     }
     return self;
@@ -275,7 +260,7 @@
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
 {
     
-//    NSLog(@"presence：%@", presence);
+    NSLog(@"presence：%@", presence);
     
     /*
      <presence xmlns="jabber:client" from="view1@1000phone.net/c0314c94" to="view1@1000phone.net/c0314c94"/>
@@ -286,48 +271,6 @@
      <presence xmlns="jabber:client" type="unavailable" from="nie8@1000phone.net/a319b938" to="nie@1000phone.net"/>
      */
     
-    NSString *from = [presence attributeStringValueForName:@"from"];
-//    NSLog(@"from: %@", from);
-    //nie@1000phone.net/67f1ed1a
-    XMPPJID *fromJid = [XMPPJID jidWithString:from];
-    
-    NSString *friendStr = [NSString stringWithFormat:@"%@@%@", fromJid.user, fromJid.domain];
-    XMPPJID *friendJid = [XMPPJID jidWithString:friendStr];
-    
-//    NSLog(@"friendStr: %@", friendStr);
-
-    
-    
-    
-    //好友状态
-    NSString *type = [presence type];
-    NSLog(@" === type :%@", type);
-
-    NSString *status = @"available"; //默认是在线状态
-    
-    //如果有好友上线了
-    if ( [type isEqualToString:@"available"] ) {
-        NSLog(@"有好友上线了：%@ ", friendStr);
-        status = @"available";
-    }
-    
-    //有好友下线了
-    else if ( [type isEqualToString:@"unavailable"] ){
-        NSLog(@"有好友下线了：%@", friendStr);
-        status = @"unavailable";
-    }
-    
-    //有人请求添加我为好友
-    else if ( [type isEqualToString:@"subscribe"] ) {
-        
-        NSLog(@" 有人要加我为好友，这个人是：%@", friendStr);
-        //接受别人的加好友请求，并且请求添加对方为好友
-        [_xmppRoster acceptPresenceSubscriptionRequestFrom:friendJid andAddToRoster:YES];
-        
-    }
-    
-    //更新所有好友的某一个好友的状态
-    [self updateFriend:friendStr withNewStatus:status];
     
 }
 
@@ -343,7 +286,11 @@
     
 //    NSLog(@" iq :%@", iq);
     
-    
+    /*
+     <iq type="get">
+        <query xmlns="jabber:iq:roster"/>
+     </iq>
+     */
     
     //发送xml数据，请求获取好友列表
     [_xmppStream sendElement:iq];
@@ -353,188 +300,23 @@
 #pragma  mark - 获取到所有好友的信息
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
 {
-//    NSLog(@" iq :%@", iq);
+    NSLog(@" iq :%@", iq);
     
     /*
      <iq xmlns="jabber:client" type="result" id="0C78E1D9-8D9A-4520-A03A-410A90E7FC40" to="nie@1000phone.net/4cf995b5">
       <query xmlns="jabber:iq:roster">
-        <item jid="nie8@1000phone.net" subscription="both"/>
-        <item jid="nie3@1000phone.net" subscription="both"/>
-        <item jid="ijeff@1000phone.net" subscription="both"/>
-        <item jid="nie2@1000phone.net" subscription="both"/>
+       <item jid="nie8@1000phone.net" subscription="both"/>
+       <item jid="nie3@1000phone.net" subscription="both"/>
+       <item jid="ijeff@1000phone.net" subscription="both"/>
+       <item jid="nie2@1000phone.net" subscription="both"/>
       </query>
      </iq>
      */
     
-    NSXMLElement *query = iq.childElement;
-    //遍历query的所有子节点
-    for (NSXMLElement *item in query.children) {
-        NSString *name = [item attributeStringValueForName:@"jid"];
-        NSLog(@"friend Name: %@", name);
-        
-        //添加好友到allFriends中
-        [self addFriendWithName:name andStatus:@"unavailable"];
-    }
-    
     return YES;
 }
 
-#pragma  mark - 添加好友到allFriends中
-- (void)addFriendWithName:(NSString *)name andStatus:(NSString *)status
-{
-    //遍历原本所有的好友
-    for (QFUserModel *model in allFriends) {
-        
-        //如果存在相同名称的好友，不添加
-        if ( [model.name isEqualToString:name] ) {
-            NSLog(@" 已经存在该好友了 ，不添加了 ");
-            return;
-        }
-    }
-    
-    //取得自己的名称
-    NSString *myName = [NSString stringWithFormat:@"%@@%@", _xmppStream.myJID.user, _xmppStream.myJID.domain];
-    
-    if ( [name isEqualToString:myName] ) {
-        NSLog(@" 是我自己，不添加 ");
-        return;
-    }
-    
-    //添加这个好友
-    QFUserModel *model = [[QFUserModel alloc] init];
-    model.name = name;
-    model.status = status;
-    
-    [allFriends addObject:model];
-    
-//    NSLog(@"allFriends.count: %d", allFriends.count);
-    
-    //每添加一个好友，返回最新的allFriends
-    if ( getFriendsResultBlock ) {
-        getFriendsResultBlock(allFriends);
-    }
-    
-}
 
-
-#pragma mark - 更新所有好友的某一个好友的状态
-- (void)updateFriend:(NSString *)name withNewStatus:(NSString *)newStatus
-{
-    for (QFUserModel *model in allFriends) {
-        
-        //判断是否已经存在该好友，存在则修改其状态
-        if ( [model.name isEqualToString:name] ) {
-            model.status = newStatus;
-            
-            //返回更新状态后的最新的allFriends
-            if ( getFriendsResultBlock ) {
-                getFriendsResultBlock(allFriends);
-            }
-            
-            return;
-        }
-    }
-    
-    //添加该好友
-    [self addFriendWithName:name andStatus:newStatus];
-    
-}
-
-#pragma  mark - 获取好友
-- (void)getAllFriends:( void(^)(NSArray *friends) )resultBlock
-{
-    getFriendsResultBlock = [resultBlock copy];
-    
-    //返回allFriends
-    if ( getFriendsResultBlock ) {
-        getFriendsResultBlock(allFriends);
-    }
-    
-}
-
-#pragma  mark - 添加好友
-- (void)addFriend:(NSString *)name
-{
-    XMPPJID *jid = [XMPPJID jidWithString:name];
-    
-    //请求添加好友
-    [_xmppRoster subscribePresenceToUser:jid];
-}
-
-
-
-
-#pragma  mark - 发送信息
-- (void)sendMessage:(NSString *)content to:(NSString *)name result:( void(^)(BOOL success) )resultBlock
-{
-    sendMessageResultBlock = [resultBlock copy];
-    
-    NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
-    [body setStringValue:content];
-    
-    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
-    [message addAttributeWithName:@"type" stringValue:@"chat"];
-    [message addAttributeWithName:@"to" stringValue:name];
-    [message addChild:body];
-    
-    NSLog(@"message: %@", message);
-    
-    /*
-     <message type="chat" to="cpm@1000phone.net">
-        <body>dfa </body>
-     </message>
-     */
-    
-    //发送信息
-    [_xmppStream sendElement:message];
-    
-}
-
-#pragma  mark -- 发送信息成功的回调方法
-- (void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message
-{
-    if ( sendMessageResultBlock ) {
-        sendMessageResultBlock(YES);
-    }
-}
-
-#pragma  mark -- 发送信息失败
-- (void)xmppStream:(XMPPStream *)sender didFailToSendMessage:(XMPPMessage *)message error:(NSError *)error
-{
-    if ( sendMessageResultBlock ) {
-        sendMessageResultBlock(NO);
-    }
-}
-
-#pragma  mark - 接收信息
-- (void)getMessage:( void(^)(QFChatModel *model) )resultBlock
-{
-    getMessageResultBlock = [resultBlock copy];
-}
-
--(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
-{
-    if ( [message isChatMessage] ) {
-        
-        if ([message isChatMessageWithBody]) {
-            
-            NSString *body = message.body;
-            NSString *from = message.from.bare;
-            NSString *to = message.to.bare;
-            
-            QFChatModel *model = [[QFChatModel alloc] init];
-            model.content = body;
-            model.from = from;
-            model.to = to;
-            
-            if ( getMessageResultBlock ) {
-                getMessageResultBlock(model);
-            }
-        }
-        
-    }
-    
-}
 
 
 
